@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FirebaseExample</string>
+    <string name="button_rd">RealTime Database</string>
+    <string name="button_cf">Cloud Firestore</string>
+    <string name="button_cs">Cloud Storage</string>
+    <string name="button_fa">Firebase Authentication</string>
+    <string name="button_func">Cloud Functions</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
