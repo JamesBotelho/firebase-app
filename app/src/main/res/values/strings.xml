@@ -6,6 +6,10 @@
     <string name="button_fa">Firebase Authentication</string>
     <string name="button_func">Cloud Functions</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_like">Gostei</string>
+    <string name="button_not_like">Não Gostei</string>
+
+    <string name="nome_item">Nome</string>
+    <string name="idade_item">%d anos.</string>
+    <string name="curtidas_item">%d curtidas</string>
 </resources>

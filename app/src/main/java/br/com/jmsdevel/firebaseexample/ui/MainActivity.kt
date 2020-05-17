@@ -1,7 +1,8 @@
-package br.com.jmsdevel.firebaseexample
+package br.com.jmsdevel.firebaseexample.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.jmsdevel.firebaseexample.R
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="nome_size">36sp</dimen>
+    <dimen name="idade_curtida_size">20sp</dimen>
+    <dimen name="padding_button_social">15dp</dimen>
+    <dimen name="padding_drawable_button_social">15dp</dimen>
+    <dimen name="padding_remove_button">10dp</dimen>
+</resources>

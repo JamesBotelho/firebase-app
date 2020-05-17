@@ -1,4 +1,4 @@
-package br.com.jmsdevel.firebaseexample
+package br.com.jmsdevel.firebaseexample.ui
 
 
 import android.os.Bundle
