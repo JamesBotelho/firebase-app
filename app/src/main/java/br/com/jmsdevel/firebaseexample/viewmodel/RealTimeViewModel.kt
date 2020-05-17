@@ -9,8 +9,7 @@ import androidx.lifecycle.ViewModel
 import br.com.jmsdevel.firebaseexample.database.RealTimeDatabase
 import br.com.jmsdevel.firebaseexample.model.Evento
 import br.com.jmsdevel.firebaseexample.model.Usuario
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import java.util.function.Function
@@ -61,17 +60,44 @@ class RealTimeViewModel: ViewModel() {
         }
     }
 
+    private fun atualizaCurtidas(id: String, add: Boolean) {
+        val ref = databaseReference.child("${id}/curtidas")
+        ref.runTransaction(object: Transaction.Handler {
+
+            override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                val curtidasAtual = mutableData.getValue(Int::class.java)
+
+                curtidasAtual?.let {
+                    if (it == 0) {
+                        mutableData.value = 1
+                    } else {
+                        if (add)
+                            mutableData.value = curtidasAtual + 1
+                        else
+                            mutableData.value = curtidasAtual - 1
+                    }
+                }
+
+                return Transaction.success(mutableData)
+            }
+
+            override fun onComplete(p0: DatabaseError?, p1: Boolean, p2: DataSnapshot?) {
+                Log.i("ACABOU", "ACABOU")
+            }
+        })
+    }
+
     fun modificaValor(acao: String, usuario: Usuario) {
         val id = usuario.id
         usuario.id = ""
         when(acao) {
             Evento.CURTIR.name -> {
                 usuario.curtidas = usuario.curtidas+1
-                atualizaBanco(id, usuario)
+                atualizaCurtidas(id, true)
             }
             Evento.DESCURTIR.name ->{
                 usuario.curtidas = usuario.curtidas-1
-                atualizaBanco(id, usuario)
+                atualizaCurtidas(id, false)
             }
             else -> {
                 atualizaBanco(id, null)
