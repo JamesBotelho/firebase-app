@@ -1,11 +1,13 @@
 package br.com.jmsdevel.firebaseexample.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import br.com.jmsdevel.firebaseexample.database.RealTimeDatabase
+import br.com.jmsdevel.firebaseexample.model.Evento
 import br.com.jmsdevel.firebaseexample.model.Usuario
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
@@ -40,6 +42,33 @@ class RealTimeViewModel: ViewModel() {
 
     fun getSnapshot(): LiveData<List<Usuario>> {
         return liveData
+    }
+
+    private fun atualizaBanco(id: String, usuario: Usuario?) {
+        databaseReference.child(id).setValue(usuario).addOnSuccessListener {
+            Log.i("DEU CERTO", "DEU CERTO")
+        }.addOnCanceledListener {
+            Log.e("DEU RUIM", "DEU RUIM")
+        }
+    }
+
+    fun modificaValor(acao: String, usuario: Usuario) {
+        val id = usuario.id
+        usuario.id = ""
+        when(acao) {
+            Evento.CURTIR.name -> {
+                usuario.curtidas = usuario.curtidas+1
+                atualizaBanco(id, usuario)
+            }
+            Evento.DESCURTIR.name ->{
+                usuario.curtidas = usuario.curtidas-1
+                atualizaBanco(id, usuario)
+            }
+            else -> {
+                atualizaBanco(id, null)
+            }
+        }
+
     }
 
 }

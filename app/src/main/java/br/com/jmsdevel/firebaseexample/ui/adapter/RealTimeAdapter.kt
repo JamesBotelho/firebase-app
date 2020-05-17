@@ -27,6 +27,10 @@ class RealTimeAdapter(private val mUsuarios: List<Usuario>,
         holder.vincula(usuario)
     }
 
+    fun getItem(position: Int): Usuario {
+        return mUsuarios[position]
+    }
+
 
     inner class ViewHolder(private val viewDataBinding: ItemPessoaBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
         private lateinit var usuario: Usuario

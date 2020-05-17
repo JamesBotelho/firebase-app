@@ -28,6 +28,8 @@ class RealTimeFragment : Fragment(), Observer<List<Usuario>> {
         ViewModelProvider(this).get(RealTimeViewModel::class.java)
     }
 
+    private lateinit var adaptadorInstance: RealTimeAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,9 +54,10 @@ class RealTimeFragment : Fragment(), Observer<List<Usuario>> {
     override fun onChanged(t: List<Usuario>?) {
         t?.let {
             val adaptador = RealTimeAdapter(it, context) {click ->
-                Toast.makeText(activity, "${click.posicao} - ${click.evento}", Toast.LENGTH_SHORT).show()
+                viewModel.modificaValor(click.evento, adaptadorInstance.getItem(click.posicao))
             }
             rv_cadastros.adapter = adaptador
+            this.adaptadorInstance = adaptador
         }
     }
 }
