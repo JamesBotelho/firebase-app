@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.jmsdevel.firebaseexample.databinding.FragmentRealTimeBinding
 import br.com.jmsdevel.firebaseexample.model.Usuario
@@ -22,10 +23,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_real_time.*
 
-class RealTimeFragment : Fragment(), Observer<List<Usuario>> {
+class RealTimeFragment : Fragment(), Observer<List<Usuario>>, View.OnClickListener {
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(RealTimeViewModel::class.java)
+    }
+
+    private val controlador by lazy {
+        findNavController()
     }
 
     private lateinit var adaptadorInstance: RealTimeAdapter
@@ -35,6 +40,8 @@ class RealTimeFragment : Fragment(), Observer<List<Usuario>> {
         savedInstanceState: Bundle?
     ): View? {
         val viewBinding = FragmentRealTimeBinding.inflate(inflater, container, false)
+
+        viewBinding.listener = this
 
         return viewBinding.root
     }
@@ -48,6 +55,12 @@ class RealTimeFragment : Fragment(), Observer<List<Usuario>> {
         with(rv_cadastros){
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    override fun onClick(view: View?) {
+        RealTimeFragmentDirections.FromRealTimeToCadastro().apply {
+            controlador.navigate(this)
         }
     }
 

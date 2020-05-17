@@ -16,7 +16,12 @@ import kotlinx.coroutines.Dispatchers
 import java.util.function.Function
 
 class RealTimeViewModel: ViewModel() {
-    private val databaseReference = FirebaseDatabase.getInstance().getReference("card")
+    private val firebaseInstance = FirebaseDatabase.getInstance().apply {
+        try {
+            this.setPersistenceEnabled(true)
+        }catch (e: Exception){}
+    }
+    private val databaseReference = firebaseInstance.getReference("card")
 
     private val live = RealTimeDatabase(databaseReference)
 
@@ -42,6 +47,10 @@ class RealTimeViewModel: ViewModel() {
 
     fun getSnapshot(): LiveData<List<Usuario>> {
         return liveData
+    }
+
+    fun salva(usuario: Usuario) {
+        databaseReference.push().setValue(usuario)
     }
 
     private fun atualizaBanco(id: String, usuario: Usuario?) {

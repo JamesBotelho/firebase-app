@@ -18,5 +18,13 @@
         android:id="@+id/realTimeFragment"
         android:name="br.com.jmsdevel.firebaseexample.ui.RealTimeFragment"
         android:label="fragment_real_time"
-        tools:layout="@layout/fragment_real_time" />
+        tools:layout="@layout/fragment_real_time" >
+        <action
+            android:id="@+id/FromRealTimeToCadastro"
+            app:destination="@id/cadastroFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cadastroFragment"
+        android:name="br.com.jmsdevel.firebaseexample.ui.CadastroFragment"
+        android:label="CadastroFragment" />
 </navigation>
