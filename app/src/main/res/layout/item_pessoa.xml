@@ -5,6 +5,12 @@
         <variable
             name="usuario"
             type="br.com.jmsdevel.firebaseexample.model.Usuario" />
+
+        <import type="br.com.jmsdevel.firebaseexample.model.Evento"/>
+        
+        <variable
+            name="listener"
+            type="br.com.jmsdevel.firebaseexample.ui.adapter.RealTimeAdapter.ViewHolder" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -66,6 +72,7 @@
                 android:drawablePadding="@dimen/padding_drawable_button_social"
                 android:padding="@dimen/padding_button_social"
                 android:text="@string/button_like"
+                android:onClick="@{() -> listener.click(Evento.CURTIR.name)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/likesTextView"
@@ -81,6 +88,7 @@
                 android:drawablePadding="@dimen/padding_drawable_button_social"
                 android:padding="@dimen/padding_button_social"
                 android:text="@string/button_not_like"
+                android:onClick="@{() -> listener.click(Evento.DESCURTIR.name)}"
                 app:layout_constraintBottom_toBottomOf="@+id/likeButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/likeButton" />
@@ -93,6 +101,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/holo_red_light"
                 android:padding="@dimen/padding_remove_button"
+                android:onClick="@{() -> listener.click(Evento.REMOVER.name)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_close_white_24dp" />
