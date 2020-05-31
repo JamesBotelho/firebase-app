@@ -13,6 +13,9 @@
         <action
             android:id="@+id/FromMainToReal"
             app:destination="@id/realTimeFragment" />
+        <action
+            android:id="@+id/FromMainFragmentToFireStoreFragment"
+            app:destination="@id/fireStoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/realTimeFragment"
@@ -26,5 +29,17 @@
     <fragment
         android:id="@+id/cadastroFragment"
         android:name="br.com.jmsdevel.firebaseexample.ui.CadastroFragment"
-        android:label="CadastroFragment" />
+        android:label="CadastroFragment" >
+        <argument
+            android:name="realtime"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/fireStoreFragment"
+        android:name="br.com.jmsdevel.firebaseexample.ui.FireStoreFragment"
+        android:label="FireStoreFragment" >
+        <action
+            android:id="@+id/action_fireStoreFragment_to_cadastroFragment"
+            app:destination="@id/cadastroFragment" />
+    </fragment>
 </navigation>

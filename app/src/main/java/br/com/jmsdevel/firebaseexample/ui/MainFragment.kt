@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import br.com.jmsdevel.firebaseexample.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -34,12 +35,16 @@ class MainFragment : Fragment(), View.OnClickListener {
     }
 
     private fun goToFireStore() {
-
+        MainFragmentDirections.FromMainFragmentToFireStoreFragment().run {
+            controlador.navigate(this)
+        }
     }
 
     override fun onClick(view: View) {
         when(view.id){
             realTimeID.id -> goToRealTime()
+            fireStoreID.id -> goToFireStore()
+            else -> Toast.makeText(activity, "Não implementado", Toast.LENGTH_SHORT).show()
         }
     }
 }

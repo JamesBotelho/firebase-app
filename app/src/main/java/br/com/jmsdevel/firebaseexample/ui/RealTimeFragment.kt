@@ -59,7 +59,7 @@ class RealTimeFragment : Fragment(), Observer<List<Usuario>>, View.OnClickListen
     }
 
     override fun onClick(view: View?) {
-        RealTimeFragmentDirections.FromRealTimeToCadastro().apply {
+        RealTimeFragmentDirections.FromRealTimeToCadastro(true).apply {
             controlador.navigate(this)
         }
     }

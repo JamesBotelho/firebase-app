@@ -8,19 +8,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
-import br.com.jmsdevel.firebaseexample.R
 import br.com.jmsdevel.firebaseexample.databinding.FragmentCadastroBinding
 import br.com.jmsdevel.firebaseexample.model.Usuario
+import br.com.jmsdevel.firebaseexample.viewmodel.FireStoreViewModel
 import br.com.jmsdevel.firebaseexample.viewmodel.RealTimeViewModel
 
 class CadastroFragment : Fragment(), View.OnClickListener {
 
-    private val viewModel by lazy {
+    private val argumentos by navArgs<CadastroFragmentArgs>()
+
+    private val realTime by lazy {
+        argumentos.realtime
+    }
+
+    private val realTimeViewModel by lazy {
         ViewModelProvider(this).get(RealTimeViewModel::class.java)
+    }
+
+    private val fireStoreViewModel by lazy {
+        ViewModelProvider(this).get(FireStoreViewModel::class.java)
     }
 
     private val controlador by lazy {
@@ -45,7 +55,12 @@ class CadastroFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        viewModel.salva(usuario)
+        if (realTime) {
+            realTimeViewModel.salva(usuario)
+        } else {
+            fireStoreViewModel.saveUser(this.usuario)
+        }
+
         controlador.popBackStack()
     }
 
